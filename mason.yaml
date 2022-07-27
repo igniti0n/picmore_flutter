@@ -1,0 +1,11 @@
+bricks:
+  infinum_architecture: ^1.0.0
+  look:
+    git:
+      url: "https://github.com/infinum/flutter-bits.git"
+      path: look/
+  request_provider:
+    git:
+      url: "https://github.com/infinum/flutter-bits.git"
+      path: request_provider/
+  model: ^0.3.7

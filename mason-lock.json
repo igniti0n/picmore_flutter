@@ -1,0 +1,1 @@
+{"bricks":{"infinum_architecture":"1.0.0","look":{"git":{"url":"https://github.com/infinum/flutter-bits.git","path":"look/","ref":"a8765ee44f757bcd987b8bd6d8ff8bce0fca1ed2"}},"request_provider":{"git":{"url":"https://github.com/infinum/flutter-bits.git","path":"request_provider/","ref":"a8765ee44f757bcd987b8bd6d8ff8bce0fca1ed2"}},"model":"0.3.7"}}
