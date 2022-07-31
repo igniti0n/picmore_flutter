@@ -1,5 +1,5 @@
-import 'package:infinum_architecture/domain/repository/images_repository.dart';
 import 'package:injectable/injectable.dart';
+import 'package:picmore/domain/repository/images_repository.dart';
 
 import '../../common/models/unsplash_image.dart';
 

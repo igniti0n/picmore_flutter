@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:infinum_architecture/app/go_router.dart';
+import 'package:picmore/app/go_router.dart';
 
 import '../ui/common/generic/generic_error.dart';
 import '../ui/common/look/mapping/theme_data_mapping/theme_data_mapper.dart';
@@ -15,15 +15,16 @@ class PicmoreApp extends HookConsumerWidget {
     return LookSubtree(
       child: Builder(builder: (context) {
         return MaterialApp.router(
-          routeInformationProvider: router.routeInformationProvider,
-          routeInformationParser: router.routeInformationParser,
-          routerDelegate: router.routerDelegate,
+          routeInformationProvider:
+              ref.read(routerProvider).router.routeInformationProvider,
+          routeInformationParser:
+              ref.read(routerProvider).router.routeInformationParser,
+          routerDelegate: ref.read(routerProvider).router.routerDelegate,
           debugShowCheckedModeBanner: false,
           color: Look.of(context).color.background,
           useInheritedMediaQuery: true,
           theme: ThemeDataMapper.map(Look.of(context)),
-          // locale: _languageProvider.locale ?? locale,
-          //builder: _builder,
+          builder: _builder,
         );
       }),
     );

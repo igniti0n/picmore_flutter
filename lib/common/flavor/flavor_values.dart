@@ -7,6 +7,5 @@ class FlavorValues {
   });
 
   final String baseUrl;
-  final String clientId =
-      "client_id=CLK0SBmLhZBvGYfNrPNVAy4MNWXpC2NXMxZdGVAmjZA";
+  final String clientId = "CLK0SBmLhZBvGYfNrPNVAy4MNWXpC2NXMxZdGVAmjZA";
 }

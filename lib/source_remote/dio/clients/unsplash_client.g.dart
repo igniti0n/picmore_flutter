@@ -24,7 +24,7 @@ class _UnsplashClient implements UnsplashClient {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<UnsplashImage>>(
             Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/v1/iot/things/{thingName}',
+                .compose(_dio.options, '/photos',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!

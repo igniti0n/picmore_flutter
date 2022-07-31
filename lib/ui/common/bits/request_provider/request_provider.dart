@@ -6,7 +6,9 @@ import 'package:loggy/loggy.dart';
 import 'request_state.dart';
 
 abstract class RequestProvider<Value> with ChangeNotifier, NetworkLoggy {
-  RequestProvider({RequestState<Value, Exception> initial = const RequestState.initial()}) : _requestState = initial;
+  RequestProvider(
+      {RequestState<Value, Exception> initial = const RequestState.initial()})
+      : _requestState = initial;
 
   RequestState<Value, Exception> _requestState;
 
@@ -40,12 +42,11 @@ abstract class RequestProvider<Value> with ChangeNotifier, NetworkLoggy {
     } catch (error, st) {
       loggy.error('Request Error', error, st);
       final exception = (error is Exception) ? error : Exception();
-      final stateException = errorHandler != null ? errorHandler(exception) : exception;
-      if (stateException != null) {
-        _state = RequestState.failure(stateException);
-      } else {
-        _state = const RequestState.initial();
-      }
+      final stateException =
+          errorHandler != null ? errorHandler(exception) : exception;
+      _state = stateException != null
+          ? RequestState.failure(stateException)
+          : const RequestState.initial();
     }
   }
 

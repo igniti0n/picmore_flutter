@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
-import 'package:infinum_architecture/app/di/dependency_injection.dart';
 import 'package:loggy/loggy.dart';
+import 'package:picmore/app/di/dependency_injection.dart';
 
 import '../common/flavor/app_build_mode.dart';
 import '../common/flavor/flavor_config.dart';

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:infinum_architecture/common/models/unsplash_image.dart';
+import 'package:picmore/common/models/unsplash_image.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'unsplash_client.g.dart';
@@ -8,7 +8,7 @@ part 'unsplash_client.g.dart';
 abstract class UnsplashClient {
   factory UnsplashClient(Dio dio, {String baseUrl}) = _UnsplashClient;
 
-  @GET('/v1/iot/things/{thingName}')
+  @GET('/photos')
   Future<List<UnsplashImage>> fetchImages(
     @Query('page') int page,
   );

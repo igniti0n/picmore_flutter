@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:infinum_architecture/app/di/dependency_injection.dart';
+import 'package:picmore/app/di/dependency_injection.dart';
 
 import 'app/run_picmore_app.dart';
 import 'common/flavor/flavor.dart';

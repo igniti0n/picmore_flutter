@@ -7,10 +7,8 @@ class ErrorFormatter {
   ErrorFormatter._();
 
   static String format(Exception exception, {required BuildContext context}) {
-    if (exception is LocalizedException) {
-      return exception.toLocalizedMessage(context);
-    } else {
-      return 'Unexpected error';
-    }
+    return exception is LocalizedException
+        ? exception.toLocalizedMessage(context)
+        : 'Unexpected error: $exception';
   }
 }

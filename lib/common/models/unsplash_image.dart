@@ -14,6 +14,15 @@ class UnsplashImage {
     required this.userImageUrl,
   });
 
+  factory UnsplashImage.unknown() => UnsplashImage(
+        id: 'id',
+        likes: 4,
+        url: 'url',
+        username: 'username',
+        bio: 'bio',
+        userImageUrl: 'userImageUrl',
+      );
+
   /// Creates a UnasplashImage from Json map
   factory UnsplashImage.fromJson(Map<String, dynamic> data) =>
       _$UnasplashImageFromJson(data);
@@ -28,13 +37,13 @@ class UnsplashImage {
   final String url;
 
   /// A description for usernamme
-  final String username;
+  final String? username;
 
   /// A description for bio
-  final String bio;
+  final String? bio;
 
   /// A description for userImageUrl
-  final String userImageUrl;
+  final String? userImageUrl;
 
   /// Creates a Json map from a UnasplashImage
   Map<String, dynamic> toJson() => _$UnasplashImageToJson(this);

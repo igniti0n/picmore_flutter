@@ -1,4 +1,4 @@
-import 'package:infinum_architecture/common/models/unsplash_image.dart';
+import 'package:picmore/common/models/unsplash_image.dart';
 
 abstract class ImagesRepository {
   Future<List<UnsplashImage>> fetchImages(int page);

@@ -1,4 +1,4 @@
-name: infinum_architecture
+name: picmore
 description: A new Flutter project with Infinum clean architecture.
 version: 1.0.0
 
@@ -6,10 +6,12 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
+  cached_network_image: ^3.2.1
   dio: ^4.0.6
   firebase_crashlytics: ^2.8.6
   flutter:
     sdk: flutter
+  flutter_hooks: ^0.18.5+1
   flutter_loggy: ^2.0.1
   flutter_loggy_dio: ^2.0.0+3
   freezed_annotation: ^2.1.0
