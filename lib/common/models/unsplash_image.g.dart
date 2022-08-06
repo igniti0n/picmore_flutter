@@ -8,6 +8,7 @@ UnsplashImage _$UnasplashImageFromJson(Map<String, dynamic> json) =>
       username: json['user']['username'] as String?,
       bio: json['user']['bio'] as String?,
       userImageUrl: json['user']['profile_image']['small'] as String?,
+      blurHash: json['blur_hash'] as String?,
     );
 
 Map<String, dynamic> _$UnasplashImageToJson(UnsplashImage instance) =>

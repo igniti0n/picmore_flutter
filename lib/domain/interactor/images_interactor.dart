@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:injectable/injectable.dart';
 import 'package:picmore/domain/repository/images_repository.dart';
 
@@ -15,6 +17,8 @@ class ImagesInteractorImpl extends ImagesInteractor {
 
   @override
   Future<List<UnsplashImage>> fetchImages(int page) async {
-    return await _imagesRepository.fetchImages(page);
+    final images = await _imagesRepository.fetchImages(page);
+    log('$images');
+    return images;
   }
 }

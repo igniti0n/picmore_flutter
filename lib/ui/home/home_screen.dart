@@ -15,8 +15,10 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: Colors.amber,
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(0, 86, 111, 1),
+      ),
+      backgroundColor: Color.fromRGBO(255, 193, 51, 1),
       body: ImagesBody(),
     );
   }

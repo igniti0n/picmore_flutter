@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:picmore/app/go_router.dart';
@@ -31,16 +30,11 @@ class ImageListItem extends ConsumerWidget {
           child: Stack(
             fit: StackFit.passthrough,
             children: [
-              CachedNetworkImage(
+              Image.network(
+                image.url,
+                filterQuality: FilterQuality.high,
                 fit: BoxFit.cover,
-                imageUrl: image.url,
-                placeholder: (ctx, _) => Container(
-                  color: Colors.white70,
-                  alignment: Alignment.center,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 1,
-                  ),
-                ),
+                height: 400,
               ),
               Column(
                 children: [

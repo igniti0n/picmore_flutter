@@ -12,16 +12,17 @@ class UnsplashImage {
     required this.username,
     required this.bio,
     required this.userImageUrl,
+    required this.blurHash,
   });
 
   factory UnsplashImage.unknown() => UnsplashImage(
-        id: 'id',
-        likes: 4,
-        url: 'url',
-        username: 'username',
-        bio: 'bio',
-        userImageUrl: 'userImageUrl',
-      );
+      id: 'id',
+      likes: 4,
+      url: 'url',
+      username: 'username',
+      bio: 'bio',
+      userImageUrl: 'userImageUrl',
+      blurHash: '');
 
   /// Creates a UnasplashImage from Json map
   factory UnsplashImage.fromJson(Map<String, dynamic> data) =>
@@ -29,6 +30,7 @@ class UnsplashImage {
 
   /// A description for id
   final String id;
+  final String? blurHash;
 
   /// A description for likes
   final int likes;
