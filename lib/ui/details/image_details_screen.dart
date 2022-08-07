@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:picmore/ui/details/presenter/image_provider.dart';
+import 'package:picmore/ui/details/presenter/image_presenter.dart';
 import 'package:picmore/ui/details/widgets/fibonacci_counter.dart';
 
 class ImageDetailsScreen extends HookConsumerWidget {
@@ -29,7 +29,7 @@ class ImageDetailsBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final selectedImage = ref.watch(selectedImageProvider);
+    final selectedImage = ref.watch(selectedImagePresenter);
 
     return Column(
       children: [

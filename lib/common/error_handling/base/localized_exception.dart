@@ -5,3 +5,5 @@ abstract class LocalizedException extends Exception {
 
   String toLocalizedMessage(BuildContext context);
 }
+
+class ImagesFetchingException {}

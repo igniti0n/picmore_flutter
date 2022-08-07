@@ -1,10 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:picmore/common/error_handling/base/localized_exception.dart';
 import 'package:picmore/common/models/unsplash_image.dart';
-import 'package:picmore/ui/home/presenter/images_request_provider.dart';
+import 'package:picmore/ui/home/presenter/images_request_presenter.dart';
 import 'package:picmore/ui/home/widgets/image_list_item.dart';
 
 class ImagesBody extends ConsumerStatefulWidget {
@@ -20,15 +19,10 @@ class _ImagesBodyState extends ConsumerState<ImagesBody> {
   @override
   void initState() {
     _pagingController = PagingController(firstPageKey: 0);
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
     _pagingController.addPageRequestListener((pageKey) {
-      ref.read(imagesRequestProvider.notifier).fetchImages(pageKey);
+      ref.read(imagesRequestPresenter.notifier).fetchImages(pageKey);
     });
-    super.didChangeDependencies();
+    super.initState();
   }
 
   @override
@@ -39,15 +33,8 @@ class _ImagesBodyState extends ConsumerState<ImagesBody> {
 
   @override
   Widget build(BuildContext context) {
-    ref.listen<ImagesRequestProvider>(imagesRequestProvider, (_, presenter) {
-      final nextPageKey = _pagingController.nextPageKey ?? 0;
-      presenter.state.maybeWhen(
-        success: (result) {
-          _pagingController.appendPage(result, nextPageKey + result.length);
-        },
-        orElse: () => log('OR ELSE'),
-      );
-    });
+    ref.listen<ImagesRequestPresenter>(imagesRequestPresenter,
+        (_, presenter) => onPreseterStateChanged(presenter));
 
     return PagedListView<int, UnsplashImage>(
       pagingController: _pagingController,
@@ -82,14 +69,14 @@ class _ImagesBodyState extends ConsumerState<ImagesBody> {
     );
   }
 
-  void listenToPopularMoviesBloc() {
-    // WHEN GOOD
+  void onPreseterStateChanged(ImagesRequestPresenter presenter) {
     final nextPageKey = _pagingController.nextPageKey ?? 0;
-    // _pagingController.appendPage(
-    //     state.movies, nextPageKey + state.movies.length);
-
-    // WHEN EERROR
-    //    _pagingController.error = state.failure;
+    presenter.state.maybeWhen(
+      success: (result) {
+        _pagingController.appendPage(result, nextPageKey + result.length);
+      },
+      orElse: () => _pagingController.error = ImagesFetchingException(),
+    );
   }
 }
 

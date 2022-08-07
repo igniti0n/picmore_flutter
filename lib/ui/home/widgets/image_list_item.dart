@@ -3,7 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:picmore/app/go_router.dart';
 import 'package:picmore/common/models/unsplash_image.dart';
 import 'package:picmore/ui/common/widgets/image_details_bar.dart';
-import 'package:picmore/ui/details/presenter/image_provider.dart';
+import 'package:picmore/ui/details/presenter/image_presenter.dart';
 
 class ImageListItem extends ConsumerWidget {
   const ImageListItem({Key? key, required this.image}) : super(key: key);
@@ -15,14 +15,7 @@ class ImageListItem extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: GestureDetector(
-        onTap: () {
-          ref.read(selectedImageProvider.notifier).state = image;
-          ref.read(routerProvider).router.goNamed(
-                'image',
-                params: {'imid': image.id},
-                extra: image,
-              );
-        },
+        onTap: () => _onImageTapped(ref),
         child: ClipRRect(
           borderRadius: BorderRadius.all(
             Radius.circular(16),
@@ -47,5 +40,14 @@ class ImageListItem extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _onImageTapped(WidgetRef ref) {
+    ref.read(selectedImagePresenter.notifier).state = image;
+    ref.read(routerProvider).router.goNamed(
+          'image',
+          params: {'imid': image.id},
+          extra: image,
+        );
   }
 }

@@ -8,16 +8,11 @@ import 'common/flavor/flavor_values.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  //dependency injection
-  configureInjection(Flavor.production.name);
-
+  configureInjection();
   getIt.registerSingleton(FlavorConfig(
-    flavor: Flavor.production,
-    name: 'Production',
-    values: const FlavorValues(
-      baseUrl: 'production URL',
-    ),
+    flavor: Flavor.staging,
+    name: 'Staging',
+    values: FlavorValues(),
   ));
-
   runPicmoreApp();
 }

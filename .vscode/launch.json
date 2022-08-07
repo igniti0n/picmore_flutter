@@ -8,7 +8,7 @@
             "name": "picmore",
             "request": "launch",
             "type": "dart",
-            "program" : "lib/main_staging.dart",
+            "program" : "lib/main.dart",
         },
         {
             "name": "picmore (profile mode)",
@@ -16,12 +16,5 @@
             "type": "dart",
             "flutterMode": "profile"
         },
-        {
-            "name": "picmore (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release",
-            "program" : "lib/main_production.dart",
-        }
     ]
 }

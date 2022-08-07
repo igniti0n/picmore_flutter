@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:picmore/domain/expensive_fibonaccy_counter.dart';
 
-final fibonacciNumberProvider =
-    StateNotifierProvider.autoDispose<FibonacciNotifier, int>((ref) {
-  return FibonacciNotifier();
+final fibonacciNumberPresenter =
+    StateNotifierProvider.autoDispose<FibonacciNumberPresenter, int>((ref) {
+  return FibonacciNumberPresenter();
 });
 
-class FibonacciNotifier extends StateNotifier<int> {
-  FibonacciNotifier() : super(0);
+class FibonacciNumberPresenter extends StateNotifier<int> {
+  FibonacciNumberPresenter() : super(0);
 
   final counter = ExpensiveFibonacciCounter();
 

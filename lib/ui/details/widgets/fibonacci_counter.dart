@@ -1,28 +1,19 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:picmore/ui/details/presenter/fibonacci_number_provider.dart';
+import 'package:picmore/ui/details/presenter/fibonacci_number_presenter.dart';
 
 class FibonacciCounter extends ConsumerWidget {
   const FibonacciCounter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final fiboancciResult = ref.watch(fibonacciNumberProvider);
-
-    ref.listen<int>(
-      fibonacciNumberProvider,
-      (previous, next) {
-        log('Updated: ${next}');
-      },
-    );
+    final fiboancciResult = ref.watch(fibonacciNumberPresenter);
 
     return Column(
       children: [
         TextButton(
           onPressed: () => ref
-              .read(fibonacciNumberProvider.notifier)
+              .read(fibonacciNumberPresenter.notifier)
               .countFibonacciForNumber(33),
           child: Text('Calculate'),
         ),
