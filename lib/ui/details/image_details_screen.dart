@@ -1,14 +1,10 @@
-import 'dart:developer';
-import 'dart:io';
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
+import 'package:bitmap/bitmap.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:picmore/ui/details/presenter/image_presenter.dart';
 
 class ImageDetailsScreen extends HookConsumerWidget {
@@ -40,7 +36,13 @@ class ImageDetailsBody extends ConsumerStatefulWidget {
 
 class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
   double sliderValue = 1;
-  GlobalKey _globalKey = new GlobalKey();
+  Uint8List? filteredImage;
+
+  @override
+  void didChangeDependencies() {
+    _transformPixels(ref.read(selectedImagePresenter).url);
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,43 +50,23 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
 
     return Column(
       children: [
-        RepaintBoundary(
-          key: _globalKey,
-          child: ColorFiltered(
-            colorFilter: ui.ColorFilter.matrix(Float64List.fromList(
-              [
-                //R  G   B    A  Const
-                sliderValue, 0, 0, 0, 0,
-                0, sliderValue, 0, 0, 0,
-                0, 0, sliderValue, 0, 0,
-                0, 0, 0, 1, 0,
-              ],
-            )),
-            child: Image.network(
-              selectedImage.url,
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.cover,
-            ),
+        if (filteredImage == null)
+          Center(
+            child: CircularProgressIndicator.adaptive(),
+          )
+        else
+          Image.memory(
+            filteredImage!,
           ),
-        ),
         Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
             children: [
-              Text(
-                'Apply filter',
-              ),
-              Slider(
-                  max: 3,
-                  min: -1,
-                  divisions: null,
-                  value: sliderValue,
-                  onChanged: (newValue) {
-                    setState(() {
-                      sliderValue = newValue;
-                      log('Value $sliderValue');
-                    });
-                  }),
+              TextButton(
+                  onPressed: () {
+                    _transformPixels(selectedImage.url);
+                  },
+                  child: Text('Apply filter')),
               TextButton(
                 onPressed: () => _capturePng(),
                 child: Text('Save to gallery.'),
@@ -133,24 +115,28 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
     );
   }
 
+  Future<void> _transformPixels(String imageUrl) async {
+    final image = NetworkImage(imageUrl);
+    Bitmap bitmap = await Bitmap.fromProvider(image);
+    late final Uint8List newImage;
+    if (filteredImage != null) {
+      newImage =
+          bitmap.apply(BitmapAdjustColor(exposure: sliderValue)).buildHeaded();
+    } else {
+      newImage = bitmap.buildHeaded();
+    }
+    setState(() {
+      filteredImage = newImage;
+    });
+  }
+
   Future<void> _capturePng() async {
     try {
-      print('inside');
-      final boundary = _globalKey.currentContext?.findRenderObject()
-          as RenderRepaintBoundary;
-      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      final byteData = await image.toByteData(format: ui.ImageByteFormat.png);
-      Uint8List pngBytes = byteData?.buffer.asUint8List() ?? Uint8List(0);
-      //create file
-      final String dir = (await getApplicationDocumentsDirectory()).path;
-      final imagePath = '$dir/file_name${DateTime.now()}.png';
-      final capturedFile = File(imagePath);
-      await capturedFile.writeAsBytes(pngBytes);
-      print(capturedFile.path);
-      final dynamic result = await ImageGallerySaver.saveImage(pngBytes,
-          quality: 60, name: 'file_name${DateTime.now()}');
-      print(result);
-      print('png done');
+      if (filteredImage == null) {
+        return;
+      }
+      final dynamic result = await ImageGallerySaver.saveImage(filteredImage!,
+          quality: 100, name: 'file_name${DateTime.now()}');
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Saved to gallery!')));
     } catch (e) {

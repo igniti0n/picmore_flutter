@@ -6,6 +6,7 @@ environment:
   sdk: ">=2.16.0 <3.0.0"
 
 dependencies:
+  bitmap: ^0.1.2
   cached_network_image: ^3.2.1
   dio: ^4.0.6
   flutter:
@@ -19,11 +20,13 @@ dependencies:
   get_it: ^7.2.0
   go_router: ^4.2.0
   hooks_riverpod: ^1.0.4
+  image: ^3.2.0
   image_gallery_saver: ^1.7.1
   infinite_scroll_pagination: ^3.2.0
   injectable: ^1.5.3
   json_annotation: ^4.6.0
   loggy: ^2.0.1+1
+  ml_linalg: ^13.10.0
   retrofit: ^3.0.1+1
 
 dev_dependencies:
