@@ -51,15 +51,15 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
         RepaintBoundary(
           key: _globalKey,
           child: ColorFiltered(
-            colorFilter: ColorFilter.matrix(
+            colorFilter: ui.ColorFilter.matrix(Float64List.fromList(
               [
                 //R  G   B    A  Const
-                sliderValue, 0, 0, 0, 0, //
-                0, 1, 0, 0, 0, //
-                0, 0, 1, 0, 0, //
-                0, 0, 0, 1, 0, //
+                sliderValue, 0, 0, 0, 0,
+                0, sliderValue, 0, 0, 0,
+                0, 0, sliderValue, 0, 0,
+                0, 0, 0, 1, 0,
               ],
-            ),
+            )),
             child: Image.network(
               selectedImage.url,
               filterQuality: FilterQuality.high,

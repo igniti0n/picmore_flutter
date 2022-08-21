@@ -8,7 +8,6 @@ environment:
 dependencies:
   cached_network_image: ^3.2.1
   dio: ^4.0.6
-  firebase_crashlytics: ^2.8.6
   flutter:
     sdk: flutter
   flutter_blurhash: ^0.7.0
@@ -25,7 +24,6 @@ dependencies:
   injectable: ^1.5.3
   json_annotation: ^4.6.0
   loggy: ^2.0.1+1
-  path_provider: ^2.0.11
   retrofit: ^3.0.1+1
 
 dev_dependencies:

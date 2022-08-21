@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,29 +12,16 @@ import '../common/flavor/flavor_config.dart';
 import 'picmore_app.dart';
 
 Future<void> runPicmoreApp() async {
-  await runZonedGuarded<Future<void>>(
-    () async {
-      getIt.registerLazySingleton(_determineAppBuildMode);
-      _setupErrorCapture();
-      _lockOrientation();
-
-      runApp(ProviderScope(child: PicmoreApp()));
-    },
-    (dynamic error, StackTrace stackTrace) async {
-      await FlavorConfig.submitError(
-        error,
-        stackTrace: stackTrace,
-      );
-    },
-  );
+  getIt.registerLazySingleton(_determineAppBuildMode);
+  _setupErrorCapture();
+  _lockOrientation();
+  runApp(ProviderScope(child: PicmoreApp()));
 }
 
 void _setupErrorCapture() {
   FlutterError.onError = (FlutterErrorDetails details) async {
     final flavour = GetIt.instance.get<FlavorConfig>();
     if (flavour.flavor == AppBuildMode.debug) {
-      FlutterError.onError =
-          FirebaseCrashlytics.instance.recordFlutterFatalError;
       FlutterError.dumpErrorToConsole(details);
     } else {
       Zone.current.handleUncaughtError(

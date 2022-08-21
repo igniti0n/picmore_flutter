@@ -1,4 +1,3 @@
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
@@ -40,32 +39,4 @@ class FlavorConfig {
   static bool get isProduction => _instance.flavor == Flavor.production;
 
   static bool get isStaging => _instance.flavor == Flavor.staging;
-
-  /// Submit error can be called from any part of the app, if sentry is set up
-  /// that error will be sent to sentry as well
-  static Future<void> submitError(
-    dynamic error, {
-    StackTrace? stackTrace,
-  }) async {
-    if (kDebugMode) {
-      logDebug(stackTrace);
-      logDebug('In debug mode. Not sending report to Crashlytics.');
-
-      return;
-    }
-    await FirebaseCrashlytics.instance
-        .recordError(error, stackTrace, fatal: true)
-        .then(
-      (value) {
-        logDebug('Crash reported to Crashlytics.');
-      },
-      onError: (dynamic e) {
-        logDebug('Error reporting to Crashlytics. $e');
-      },
-    );
-  }
-
-  static Future<void> log(String message) async {
-    await FirebaseCrashlytics.instance.log(message);
-  }
 }
