@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:picmore/app/di/dependency_injection.dart';
 import 'package:picmore/common/models/unsplash_image.dart';
@@ -13,14 +15,18 @@ class ImagesRequestPresenter extends RequestProvider<List<UnsplashImage>> {
   ImagesRequestPresenter(this._imagesInteractor);
 
   final ImagesInteractor _imagesInteractor;
-  int pageNumber = 0;
+  int pageNumber = 1;
 
   void fetchImages(int pageKey) {
-    if (pageKey == 0) {
-      pageNumber = 0;
+    if (pageKey == 1) {
+      pageNumber = 1;
     }
     executeRequest(requestBuilder: () async {
       final result = await _imagesInteractor.fetchImages(pageNumber);
+      log('fetching for $pageNumber returned');
+      for (var image in result) {
+        log(image.toString());
+      }
       pageNumber++;
       return result;
     });

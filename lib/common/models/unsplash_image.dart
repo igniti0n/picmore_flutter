@@ -15,6 +15,10 @@ class UnsplashImage {
     required this.blurHash,
   });
 
+  String toString() {
+    return '$likes - $username';
+  }
+
   factory UnsplashImage.unknown() => UnsplashImage(
       id: 'id',
       likes: 4,

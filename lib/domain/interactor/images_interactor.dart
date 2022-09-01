@@ -18,7 +18,7 @@ class ImagesInteractorImpl extends ImagesInteractor {
   @override
   Future<List<UnsplashImage>> fetchImages(int page) async {
     final images = await _imagesRepository.fetchImages(page);
-    log('$images');
+    log(images.first.toString());
     return images;
   }
 }

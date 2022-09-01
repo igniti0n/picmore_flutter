@@ -39,6 +39,12 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
   Uint8List? filteredImage;
 
   @override
+  void initState() {
+    print('{APPTIM_EVENT}: navGo, STOP');
+    super.initState();
+  }
+
+  @override
   void didChangeDependencies() {
     _transformPixels(ref.read(selectedImagePresenter).url);
     super.didChangeDependencies();
@@ -46,6 +52,8 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
 
   @override
   Widget build(BuildContext context) {
+    print('{APPTIM_EVENT}: navGoBuild, STOP');
+
     final selectedImage = ref.watch(selectedImagePresenter);
 
     return Column(
@@ -117,6 +125,7 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
 
   Future<void> _transformPixels(String imageUrl) async {
     final image = NetworkImage(imageUrl);
+    print('{APPTIM_EVENT}: event_name, START');
     Bitmap bitmap = await Bitmap.fromProvider(image);
     late final Uint8List newImage;
     if (filteredImage != null) {
@@ -126,6 +135,7 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
       newImage = bitmap.buildHeaded();
     }
     setState(() {
+      print('{APPTIM_EVENT}: event_name, STOP');
       filteredImage = newImage;
     });
   }
@@ -135,8 +145,11 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
       if (filteredImage == null) {
         return;
       }
+      print('{APPTIM_EVENT}: savingImage, START');
       final dynamic result = await ImageGallerySaver.saveImage(filteredImage!,
           quality: 100, name: 'file_name${DateTime.now()}');
+      print('{APPTIM_EVENT}: savingImage, STOP');
+
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Saved to gallery!')));
     } catch (e) {

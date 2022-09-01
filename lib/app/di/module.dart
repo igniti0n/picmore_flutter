@@ -9,7 +9,7 @@ abstract class Module {
       baseUrl: 'https://api.unsplash.com',
     ));
     _dio.interceptors.add(queuedClientIdInterceptor);
-    // _dio.interceptors.add(logInterceptor);
+    _dio.interceptors.add(logInterceptor);
     return _dio;
   }
 }

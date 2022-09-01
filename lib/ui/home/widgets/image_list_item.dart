@@ -44,6 +44,9 @@ class ImageListItem extends ConsumerWidget {
 
   void _onImageTapped(WidgetRef ref) {
     ref.read(selectedImagePresenter.notifier).state = image;
+    print('{APPTIM_EVENT}: navGo, START');
+    print('{APPTIM_EVENT}: navGoBuild, START');
+
     ref.read(routerProvider).router.goNamed(
           'image',
           params: {'imid': image.id},
