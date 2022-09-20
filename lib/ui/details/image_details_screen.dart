@@ -145,11 +145,8 @@ class _ImageDetailsBodyState extends ConsumerState<ImageDetailsBody> {
       if (filteredImage == null) {
         return;
       }
-      print('{APPTIM_EVENT}: savingImage, START');
-      final dynamic result = await ImageGallerySaver.saveImage(filteredImage!,
+      await ImageGallerySaver.saveImage(filteredImage!,
           quality: 100, name: 'file_name${DateTime.now()}');
-      print('{APPTIM_EVENT}: savingImage, STOP');
-
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Saved to gallery!')));
     } catch (e) {
